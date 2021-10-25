@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PixelPlusMulakat.Interfaces.Repositories;
 using PixelPlusMulakat.Models;
@@ -7,7 +8,7 @@ namespace PixelPlusMulakat.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("[controller]/[action]/{id?}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin", AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class CategoryController : Controller
     {
         private readonly IGenericRepository<Category> _categoryRepository;

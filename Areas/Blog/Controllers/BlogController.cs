@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PixelPlusMulakat.Areas.Admin.Models.ViewModels;
 using PixelPlusMulakat.Interfaces.Services;
@@ -7,7 +8,7 @@ namespace PixelPlusMulakat.Areas.Blog.Controllers
 {
     [Area("Blog")]
     [Route("[controller]/[action]")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class BlogController : Controller
     {
         private readonly IArticleService _articleService;

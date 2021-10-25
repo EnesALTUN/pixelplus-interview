@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PixelPlusMulakat.Areas.Admin.Models.ViewModels;
 using PixelPlusMulakat.Interfaces.Repositories;
@@ -11,7 +12,7 @@ namespace PixelPlusMulakat.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("[controller]/[action]/{id?}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin", AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class ArticleController : Controller
     {
         private readonly IGenericRepository<Article> _articleRepository;

@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using PixelPlusMulakat.Models;
+using System.Security.Claims;
 
 namespace PixelPlusMulakat.Interfaces.Services
 {

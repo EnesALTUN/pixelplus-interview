@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -7,12 +8,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using PixelPlusMulakat.Data;
+using PixelPlusMulakat.Interfaces.api;
 using PixelPlusMulakat.Interfaces.Repositories;
 using PixelPlusMulakat.Interfaces.Services;
 using PixelPlusMulakat.Repositories;
 using PixelPlusMulakat.Services;
 using System;
+using System.Text;
 
 namespace PixelPlusMulakat
 {
@@ -40,13 +44,34 @@ namespace PixelPlusMulakat
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<IHelperService, HelperService>();
             services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IJwtAuthenticationManager, JwtAuthenticationManager>();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            var key = Configuration.GetSection("JwtSettings:Secret").Value;
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
             .AddCookie(options =>
             {
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";
                 options.ExpireTimeSpan = TimeSpan.FromHours(8);
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
 
             services.AddControllersWithViews();

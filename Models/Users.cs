@@ -18,7 +18,7 @@ namespace PixelPlusMulakat.Models
         [MaxLength(50, ErrorMessage = "Kategori Adı 50 Karakterden Uzun Olamaz")]
         public string Email { get; set; }
         [Required(ErrorMessage = "*Şifre Alanı Boş Geçilemez.")]
-        [MaxLength(200, ErrorMessage = "Kategori Adı 200 Karakterden Uzun Olamaz")]
+        [MaxLength(200, ErrorMessage = "Kullanıcı Parolası 200 Karakterden Uzun Olamaz")]
         public string Password { get; set; }
         [Required(ErrorMessage = "*Durum Boş Bırakılamaz")]
         public bool Status { get; set; }
