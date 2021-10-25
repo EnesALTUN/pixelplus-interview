@@ -1,0 +1,24 @@
+﻿@model PixelPlusMulakat.Areas.Admin.Models.ViewModels.ArticleVM
+@{
+    ViewData["Title"] = Model.Article.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="article row blog-detail">
+        <div class="col-12 author">
+            <span>@Model.Creator.Name @Model.Creator.SurName</span>
+        </div>
+        <div class="col-12 title">
+            <h2>@Model.Article.Title</h2>
+        </div>
+        <div class="col-12 content">
+            @Html.Raw(Model.Article.Content)
+        </div>
+        <div class="col-6 category">
+            <span>@Model.CategoryName</span>
+        </div>
+        <div class="col-6 created-date text-right">
+            <span>@Model.Article.CreatedDate.ToString("dd.MM.yyyy - HH:mm")</span>
+        </div>
+    </div>

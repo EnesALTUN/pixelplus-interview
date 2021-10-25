@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PixelPlusMulakat.Models.Category>
+@{
+    ViewData["Title"] = "Kategori";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="d-flex justify-content-center">Kategori Anasayfa</h1>
+@Html.ActionLink("Kategori Oluştur", "Create", "Category", new { area = "Admin" }, new { @class = "btn btn-success mt-2 mb-2" })
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Kategori Adı</th>
+            <th scope="col">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+        <tr>
+            <th scope="row">@category.Id</th>
+            <td>@category.Name</td>
+            <td><a href="@Url.RouteUrl("default", new { controller="Category", action="Update", id = category.Id})"><i class="fas fa-edit"></i></a> <a href="@Url.RouteUrl("default", new { controller="Category", action="Delete", id = category.Id})"><i class="fas fa-trash-alt"></i></a></td>
+        </tr>
+        }
+    </tbody>
+</table>

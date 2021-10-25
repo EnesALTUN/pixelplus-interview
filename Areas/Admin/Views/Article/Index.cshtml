@@ -1,0 +1,38 @@
+﻿@model IEnumerable<PixelPlusMulakat.Areas.Admin.Models.ViewModels.ArticleVM>
+@{
+    ViewData["Title"] = "Makale";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="d-flex justify-content-center">Makale Anasayfa</h1>
+@Html.ActionLink("Makale Oluştur", "Create", "Article", new { area = "Admin" }, new { @class = "btn btn-success mt-2 mb-2" })
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">İçerik</th>
+            <th scope="col">Kategori</th>
+            <th scope="col">Oluşturma Tarihi</th>
+            <th scope="col">Oluşturan</th>
+            <th scope="col">Durum</th>
+            <th scope="col">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var article in Model)
+        {
+        <tr>
+            <th scope="row">@article.Article.Id</th>
+            <td>@article.Article.Title</td>
+            <td>@Html.Raw(article.Article.Content)</td>
+            <td>@article.CategoryName</td>
+            <td>@article.Article.CreatedDate.ToString("dd.MM.yyyy - HH:mm")</td>
+            <td>@article.Creator.Name @article.Creator.SurName</td>
+            <td>@article.Status</td>
+            <td><a href="@Url.RouteUrl("default", new { controller="Article", action="Update", id = article.Article.Id})"><i class="fas fa-edit"></i></a> <a href="@Url.RouteUrl("default", new { controller="Article", action="Delete", id = article.Article.Id})"><i class="fas fa-trash-alt"></i></a></td>
+        </tr>
+        }
+    </tbody>
+</table>

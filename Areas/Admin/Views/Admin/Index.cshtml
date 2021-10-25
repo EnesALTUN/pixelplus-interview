@@ -1,0 +1,26 @@
+﻿@model PixelPlusMulakat.Areas.Admin.Models.ViewModels.AdminPage
+@{
+    ViewData["Title"] = "Yönetim Paneli";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row text-center admin-page">
+    <div class="col-12 col-sm-4">
+        <div class="content">
+            <h3>Toplam Makale</h3>
+            <p>@Model.TotalArticleCount</p>
+        </div>
+    </div>
+    <div class="col-12 col-sm-4">
+        <div class="content">
+            <h3>Toplam Kategori</h3>
+            <p>@Model.TotalCategoryCount</p>
+        </div>
+    </div>
+    <div class="col-12 col-sm-4">
+        <div class="content">
+            <h3>Toplam Kullanıcı</h3>
+            <p>@Model.TotalUserCount</p>
+        </div>
+    </div>
+</div>

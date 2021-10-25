@@ -1,0 +1,24 @@
+﻿@model IEnumerable<PixelPlusMulakat.Areas.Admin.Models.ViewModels.ArticleVM>
+@{
+    ViewData["Title"] = "Anasayfa";
+}
+
+    <div class="articles">
+    @foreach (var article in Model)
+    {
+        <div class="article row">
+            <div class="col-12 author">
+                <span>@article.Creator.Name @article.Creator.SurName</span>
+            </div>
+            <div class="col-12 title">
+                <h2><a href="@Url.RouteUrl("default", new { controller="Blog", action="Detail", id = article.Article.Id})">@article.Article.Title</a></h2>
+            </div>
+            <div class="col-12 content">
+                @Html.Raw(article.Article.Content)
+            </div>
+            <div class="col-6 category">
+                <span>@article.CategoryName</span>
+            </div>
+        </div>
+    }
+    </div>

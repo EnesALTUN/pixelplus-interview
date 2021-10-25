@@ -1,0 +1,32 @@
+﻿@model PixelPlusMulakat.Models.Users
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewData["ReturnUrl"] }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="textbox">
+        <i class="fas fa-user"></i>
+        @Html.TextBoxFor(user => user.Email, new { placeholder = "Email*", autofocus = " " })
+        @Html.ValidationMessageFor(user => user.Email, "", new { @data_valmsg_for = "Email" })
+    </div>
+    <div class="textbox">
+        <i class="fas fa-lock"></i>
+        <i class="far fa-eye" id="togglePassword"></i>
+        @Html.PasswordFor(user => user.Password, new { placeholder = "Şifre*" })
+        @Html.ValidationMessageFor(user => user.Password, "", new { @data_valmsg_for = "Password" })
+    </div>
+    <input type="submit" value="Giriş" class="loginBtn">
+}
+    <script type="text/javascript">
+        const togglePassword = document.getElementById("togglePassword");
+        const password = document.getElementById("Password");
+        togglePassword.addEventListener("click", function (e) {
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            this.classList.toggle("fa-eye-slash");
+        });
+    </script>
